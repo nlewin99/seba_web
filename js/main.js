@@ -2,12 +2,21 @@
 const projects = [
     {
         id: 'proyecto1',
-        title: 'CASA MODERNA',
-        description: 'DISEÑO CONTEMPORÁNEO CON ÉNFASIS EN LA SOSTENIBILIDAD Y LA LUZ NATURAL.',
+        title: 'CASA TUMAN',
+        description: 'CASA DE PLAYA EN TUMAN, CHILE.',
         location: 'CIUDAD, PAÍS',
         year: '2023',
         area: '250M²',
         images: ['img/1_c.jpg', 'img/1_bn.jpg']
+    },
+    {
+        id: 'proyecto2',
+        title: 'CASA LA POLCURA',
+        description: 'CASA DE PLAYA EN LA POLCURA, CHILE.',
+        location: 'CIUDAD, PAÍS',
+        year: '2024',
+        area: '250M²',
+        images: ['img/2_c.jpg', 'img/2_bn.jpg']
     }
     // Agregar más proyectos aquí
 ];
