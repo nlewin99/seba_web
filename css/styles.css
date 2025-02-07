@@ -28,6 +28,7 @@ body {
     overflow-x: hidden;
     width: 100%;
     position: relative;
+    padding-bottom: var(--footer-height);
 }
 
 /* Navegación */
@@ -69,7 +70,7 @@ body {
 .landing-container {
     flex: 1;
     margin-top: var(--navbar-height);
-    margin-bottom: var(--footer-height);
+    margin-bottom: 0;
     min-height: calc(100vh - var(--navbar-height) - var(--footer-height));
     position: relative;
     display: flex;
@@ -234,6 +235,9 @@ footer {
     justify-content: center;
     z-index: 1000;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    overflow: hidden;
 }
 
 .footer-content {
@@ -242,17 +246,25 @@ footer {
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+    padding: 0.25rem;
+    max-width: 100%;
+}
+
+.social-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0 0.5rem;
 }
 
 .social-links a {
     color: var(--accent-color);
     font-size: 1.5rem;
-    margin: 0 1rem;
+    margin: 0 0.5rem;
     text-decoration: none;
-}
-
-.social-links a:hover {
-    color: var(--secondary-color);
+    white-space: nowrap;
 }
 
 /* Proyectos */
@@ -433,13 +445,17 @@ footer {
         width: calc(100% - 2rem);
     }
 
+    .social-links {
+        gap: 0.25rem;
+    }
+    
     .social-links a {
         font-size: 1.2rem;
-        margin: 0 0.5rem;
+        margin: 0 0.25rem;
     }
 
-    .footer-content p {
-        font-size: 0.8rem;
+    .footer-content {
+        gap: 0.25rem;
     }
 
     .contact-container {
@@ -476,6 +492,11 @@ footer {
 
     .contact-container {
         padding: 0.25rem;
+    }
+
+    .social-links a {
+        font-size: 1rem;
+        margin: 0 0.15rem;
     }
 }
 
