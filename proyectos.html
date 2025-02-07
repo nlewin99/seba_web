@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyectos - Portfolio de Arquitectura</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html">Tu Nombre</a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="proyectos.html" class="active">Proyectos</a>
+            <a href="contacto.html">Contacto</a>
+        </div>
+    </nav>
+
+    <main class="projects-page">
+        <h1>Proyectos</h1>
+        <div class="projects-grid">
+            <article class="project-card" onclick="openProject('proyecto1')">
+                <div class="project-image">
+                    <img src="img/proyecto1.jpg" alt="Proyecto 1">
+                </div>
+                <div class="project-info">
+                    <h3>Nombre del Proyecto 1</h3>
+                    <p>Breve descripción del proyecto</p>
+                </div>
+            </article>
+            <!-- Más proyectos se agregarán aquí -->
+        </div>
+    </main>
+
+    <!-- Modal para ver proyecto en detalle -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <div class="project-gallery">
+                    <!-- Las imágenes del proyecto se cargarán aquí -->
+                </div>
+                <div class="project-details">
+                    <h2 id="modalProjectTitle"></h2>
+                    <p id="modalProjectDescription"></p>
+                    <div class="project-metadata">
+                        <div class="metadata-item">
+                            <strong>Ubicación:</strong>
+                            <span id="modalProjectLocation"></span>
+                        </div>
+                        <div class="metadata-item">
+                            <strong>Año:</strong>
+                            <span id="modalProjectYear"></span>
+                        </div>
+                        <div class="metadata-item">
+                            <strong>Área:</strong>
+                            <span id="modalProjectArea"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-behance"></i></a>
+            </div>
+            <p>&copy; 2024 Tu Nombre. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html> 
