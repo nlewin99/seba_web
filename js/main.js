@@ -2,12 +2,12 @@
 const projects = [
     {
         id: 'proyecto1',
-        title: 'Casa Moderna',
-        description: 'Diseño contemporáneo con énfasis en la sostenibilidad y la luz natural.',
-        location: 'Ciudad, País',
+        title: 'CASA MODERNA',
+        description: 'DISEÑO CONTEMPORÁNEO CON ÉNFASIS EN LA SOSTENIBILIDAD Y LA LUZ NATURAL.',
+        location: 'CIUDAD, PAÍS',
         year: '2023',
-        area: '250m²',
-        images: ['img/proyecto1/1.jpg', 'img/proyecto1/2.jpg', 'img/proyecto1/3.jpg']
+        area: '250M²',
+        images: ['img/1_c.jpg', 'img/1_bn.jpg']
     }
     // Agregar más proyectos aquí
 ];
@@ -61,18 +61,16 @@ function handleSubmit(event) {
     event.preventDefault();
     
     const formData = {
-        nombre: document.getElementById('nombre').value,
+        nombre: document.getElementById('nombre').value.toUpperCase(),
         email: document.getElementById('email').value,
-        asunto: document.getElementById('asunto').value,
-        mensaje: document.getElementById('mensaje').value
+        asunto: document.getElementById('asunto').value.toUpperCase(),
+        mensaje: document.getElementById('mensaje').value.toUpperCase()
     };
 
-    // Aquí puedes agregar la lógica para enviar el formulario
-    // Por ejemplo, usando fetch para enviar a un servidor
-    console.log('Datos del formulario:', formData);
+    console.log('DATOS DEL FORMULARIO:', formData);
     
     // Mostrar mensaje de éxito
-    alert('¡Gracias por tu mensaje! Te contactaremos pronto.');
+    alert('¡GRACIAS POR TU MENSAJE! TE CONTACTAREMOS PRONTO.');
     
     // Limpiar el formulario
     document.getElementById('contactForm').reset();
