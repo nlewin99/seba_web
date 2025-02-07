@@ -91,4 +91,69 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             });
         }
     });
+});
+
+// Carrusel
+document.addEventListener('DOMContentLoaded', function() {
+    const track = document.querySelector('.carousel-track');
+    const slides = Array.from(track.children);
+    const nextButton = document.querySelector('.carousel-button.next');
+    const prevButton = document.querySelector('.carousel-button.prev');
+    
+    let currentIndex = 0;
+    const slideCount = slides.length;
+    
+    // Mostrar el primer slide
+    slides[0].classList.add('active');
+    
+    // Función para mover al siguiente slide
+    const moveToSlide = (currentSlide, targetIndex) => {
+        // Remover clase active del slide actual
+        currentSlide.classList.remove('active');
+        // Agregar clase active al nuevo slide
+        slides[targetIndex].classList.add('active');
+    };
+    
+    // Click en botón siguiente
+    nextButton.addEventListener('click', e => {
+        const currentSlide = track.querySelector('.active');
+        let nextIndex = currentIndex + 1;
+        
+        if (nextIndex >= slideCount) {
+            nextIndex = 0;
+        }
+        
+        moveToSlide(currentSlide, nextIndex);
+        currentIndex = nextIndex;
+    });
+    
+    // Click en botón anterior
+    prevButton.addEventListener('click', e => {
+        const currentSlide = track.querySelector('.active');
+        let prevIndex = currentIndex - 1;
+        
+        if (prevIndex < 0) {
+            prevIndex = slideCount - 1;
+        }
+        
+        moveToSlide(currentSlide, prevIndex);
+        currentIndex = prevIndex;
+    });
+    
+    // Autoplay
+    let autoplayInterval = setInterval(() => {
+        nextButton.click();
+    }, 5000);
+    
+    // Pausar autoplay al hover
+    track.addEventListener('mouseenter', () => {
+        clearInterval(autoplayInterval);
+    });
+    
+    // Reanudar autoplay al quitar el hover
+    track.addEventListener('mouseleave', () => {
+        autoplayInterval = setInterval(() => {
+            nextButton.click();
+        }, 5000);
+    });
 }); 
