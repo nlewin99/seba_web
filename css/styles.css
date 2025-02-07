@@ -27,6 +27,7 @@ body {
     flex-direction: column;
     overflow-x: hidden;
     width: 100%;
+    position: relative;
 }
 
 /* Navegación */
@@ -69,7 +70,10 @@ body {
     flex: 1;
     margin-top: var(--navbar-height);
     margin-bottom: var(--footer-height);
-    height: calc(100vh - var(--navbar-height) - var(--footer-height));
+    min-height: calc(100vh - var(--navbar-height) - var(--footer-height));
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Hero Section */
@@ -78,7 +82,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    flex: 1;
     width: 100%;
     overflow: hidden;
 }
