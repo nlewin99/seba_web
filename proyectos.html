@@ -13,18 +13,20 @@
     <main class="projects-page">
         <h1>PROYECTOS</h1>
         <div class="projects-grid">
-            <article class="project-card" onclick="openProject('proyecto1')">
+            <article class="project-card" onclick="openProjectDetail('1')">
                 <div class="project-image">
-                    <img src="img/1_c.jpg" alt="PROYECTO 1">
+                    <img class="bn-image" src="img/1_bn.jpg" alt="PROYECTO 1">
+                    <img class="color-image" src="img/1_c.jpg" alt="PROYECTO 1">
                 </div>
                 <div class="project-info">
                     <h3>CASA TUMAN</h3>
                     <p>CASA DE PLAYA EN TUMAN, CHILE</p>
                 </div>
             </article>
-            <article class="project-card" onclick="openProject('proyecto2')">
+            <article class="project-card" onclick="openProjectDetail('2')">
                 <div class="project-image">
-                    <img src="img/2_c.jpg" alt="PROYECTO 2">
+                    <img class="bn-image" src="img/2_bn.jpg" alt="PROYECTO 2">
+                    <img class="color-image" src="img/2_c.jpg" alt="PROYECTO 2">
                 </div>
                 <div class="project-info">
                     <h3>CASA LA POLCURA</h3>
@@ -35,32 +37,42 @@
         </div>
     </main>
 
-    <!-- Modal para ver proyecto en detalle -->
-    <div id="projectModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <div class="modal-body">
-                <div class="project-gallery">
-                    <!-- Las imágenes del proyecto se cargarán aquí -->
+    <!-- Modal Vista Detalle -->
+    <div id="projectDetailModal" class="project-detail-modal">
+        <div class="project-detail-content">
+            <span class="project-detail-close" onclick="closeProjectDetail()">&times;</span>
+            
+            <div class="project-detail-header">
+                <h2 id="projectTitle"></h2>
+                <p id="projectLocation"></p>
+            </div>
+
+            <div class="project-detail-gallery">
+                <div class="project-main-image">
+                    <img id="mainProjectImage" src="" alt="Imagen principal del proyecto">
                 </div>
-                <div class="project-details">
-                    <h2 id="modalProjectTitle"></h2>
-                    <p id="modalProjectDescription"></p>
-                    <div class="project-metadata">
-                        <div class="metadata-item">
-                            <strong>UBICACIÓN:</strong>
-                            <span id="modalProjectLocation"></span>
-                        </div>
-                        <div class="metadata-item">
-                            <strong>AÑO:</strong>
-                            <span id="modalProjectYear"></span>
-                        </div>
-                        <div class="metadata-item">
-                            <strong>ÁREA:</strong>
-                            <span id="modalProjectArea"></span>
-                        </div>
+                <div class="project-thumbnails" id="projectThumbnails">
+                    <!-- Las miniaturas se cargarán dinámicamente -->
+                </div>
+            </div>
+
+            <div class="project-detail-info">
+                <h3>Detalles del Proyecto</h3>
+                <div class="project-metadata">
+                    <div class="metadata-item">
+                        <strong>UBICACIÓN</strong>
+                        <span id="projectDetailLocation"></span>
+                    </div>
+                    <div class="metadata-item">
+                        <strong>AÑO</strong>
+                        <span id="projectYear"></span>
+                    </div>
+                    <div class="metadata-item">
+                        <strong>ÁREA</strong>
+                        <span id="projectArea"></span>
                     </div>
                 </div>
+                <p id="projectDescription" style="margin-top: 1.5rem;"></p>
             </div>
         </div>
     </div>

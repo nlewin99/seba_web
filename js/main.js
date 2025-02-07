@@ -21,6 +21,34 @@ const projects = [
     // Agregar más proyectos aquí
 ];
 
+// Datos de los proyectos
+const projectsData = {
+    '1': {
+        title: 'CASA TUMAN',
+        location: 'TUMAN, CHILE',
+        year: '2023',
+        area: '250 m²',
+        description: 'Casa de playa diseñada para aprovechar al máximo las vistas al océano y la luz natural. Construida con materiales locales y diseñada para integrarse con el entorno natural.',
+        images: [
+            'img/1_c.jpg',
+            'img/1_bn.jpg'
+            // Añadir más imágenes del proyecto aquí
+        ]
+    },
+    '2': {
+        title: 'CASA LA POLCURA',
+        location: 'LA POLCURA, CHILE',
+        year: '2022',
+        area: '180 m²',
+        description: 'Residencia contemporánea que combina elementos modernos con materiales tradicionales. Diseñada para maximizar la eficiencia energética y el confort.',
+        images: [
+            'img/2_c.jpg',
+            'img/2_bn.jpg'
+            // Añadir más imágenes del proyecto aquí
+        ]
+    }
+};
+
 // Manejo del modal
 function openProject(projectId) {
     const project = projects.find(p => p.id === projectId);
@@ -116,4 +144,64 @@ function initBackgroundSlideshow() {
 }
 
 // Inicializar el slideshow cuando el DOM esté cargado
-document.addEventListener('DOMContentLoaded', initBackgroundSlideshow); 
+document.addEventListener('DOMContentLoaded', initBackgroundSlideshow);
+
+// Función para abrir la vista detalle
+function openProjectDetail(projectId) {
+    const project = projectsData[projectId];
+    if (!project) return;
+
+    // Actualizar la información del proyecto
+    document.getElementById('projectTitle').textContent = project.title;
+    document.getElementById('projectLocation').textContent = project.location;
+    document.getElementById('projectDetailLocation').textContent = project.location;
+    document.getElementById('projectYear').textContent = project.year;
+    document.getElementById('projectArea').textContent = project.area;
+    document.getElementById('projectDescription').textContent = project.description;
+
+    // Establecer la imagen principal
+    document.getElementById('mainProjectImage').src = project.images[0];
+
+    // Generar las miniaturas
+    const thumbnailsContainer = document.getElementById('projectThumbnails');
+    thumbnailsContainer.innerHTML = '';
+    project.images.forEach((image, index) => {
+        const thumbnail = document.createElement('div');
+        thumbnail.className = `project-thumbnail ${index === 0 ? 'active' : ''}`;
+        thumbnail.onclick = () => changeMainImage(image, thumbnail);
+        thumbnail.innerHTML = `<img src="${image}" alt="Miniatura ${index + 1}">`;
+        thumbnailsContainer.appendChild(thumbnail);
+    });
+
+    // Mostrar el modal
+    const modal = document.getElementById('projectDetailModal');
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Prevenir scroll
+}
+
+// Función para cambiar la imagen principal
+function changeMainImage(imageSrc, thumbnailElement) {
+    document.getElementById('mainProjectImage').src = imageSrc;
+    
+    // Actualizar la clase active en las miniaturas
+    const thumbnails = document.querySelectorAll('.project-thumbnail');
+    thumbnails.forEach(thumb => thumb.classList.remove('active'));
+    thumbnailElement.classList.add('active');
+}
+
+// Función para cerrar la vista detalle
+function closeProjectDetail() {
+    const modal = document.getElementById('projectDetailModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = ''; // Restaurar scroll
+}
+
+// Cerrar el modal al hacer clic fuera del contenido
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('projectDetailModal');
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeProjectDetail();
+        }
+    });
+}); 
