@@ -101,49 +101,83 @@ document.addEventListener('DOMContentLoaded', function() {
     const prevButton = document.querySelector('.carousel-button.prev');
     
     let currentIndex = 0;
+    let isTransitioning = false;
     const slideCount = slides.length;
+    const transitionDuration = 800; // debe coincidir con la duración en CSS
     
-    // Mostrar el primer slide
-    slides[0].classList.add('active');
-    
-    // Función para mover al siguiente slide
-    const moveToSlide = (currentSlide, targetIndex) => {
-        // Remover clase active del slide actual
-        currentSlide.classList.remove('active');
-        // Agregar clase active al nuevo slide
-        slides[targetIndex].classList.add('active');
+    // Función para inicializar el carrusel
+    const initializeCarousel = () => {
+        slides[0].classList.add('active');
+        slides[1].classList.add('next');
+        slides[slideCount - 1].classList.add('prev');
     };
     
-    // Click en botón siguiente
-    nextButton.addEventListener('click', e => {
-        const currentSlide = track.querySelector('.active');
-        let nextIndex = currentIndex + 1;
+    // Función para mover al siguiente slide
+    const moveToSlide = (direction) => {
+        if (isTransitioning) return;
+        isTransitioning = true;
         
-        if (nextIndex >= slideCount) {
-            nextIndex = 0;
+        const currentSlide = slides[currentIndex];
+        let nextIndex = direction === 'next' 
+            ? (currentIndex + 1) % slideCount 
+            : (currentIndex - 1 + slideCount) % slideCount;
+        
+        // Remover clases anteriores
+        slides.forEach(slide => {
+            slide.classList.remove('prev', 'next');
+        });
+        
+        // Preparar siguiente slide
+        if (direction === 'next') {
+            slides[nextIndex].classList.add('next');
+        } else {
+            slides[nextIndex].classList.add('prev');
         }
         
-        moveToSlide(currentSlide, nextIndex);
+        // Forzar un reflow para asegurar que las transiciones funcionen
+        void currentSlide.offsetWidth;
+        
+        // Activar transición
+        currentSlide.classList.remove('active');
+        slides[nextIndex].classList.add('active');
+        slides[nextIndex].classList.remove(direction === 'next' ? 'next' : 'prev');
+        
+        // Actualizar índice actual
         currentIndex = nextIndex;
-    });
+        
+        // Preparar siguiente slide para la próxima transición
+        setTimeout(() => {
+            const nextNextIndex = direction === 'next'
+                ? (currentIndex + 1) % slideCount
+                : (currentIndex - 1 + slideCount) % slideCount;
+            
+            slides.forEach((slide, index) => {
+                if (index === nextNextIndex) {
+                    slide.classList.add(direction === 'next' ? 'next' : 'prev');
+                }
+            });
+            
+            isTransitioning = false;
+        }, transitionDuration);
+    };
+    
+    // Inicializar carrusel
+    initializeCarousel();
+    
+    // Click en botón siguiente
+    nextButton.addEventListener('click', () => moveToSlide('next'));
     
     // Click en botón anterior
-    prevButton.addEventListener('click', e => {
-        const currentSlide = track.querySelector('.active');
-        let prevIndex = currentIndex - 1;
-        
-        if (prevIndex < 0) {
-            prevIndex = slideCount - 1;
-        }
-        
-        moveToSlide(currentSlide, prevIndex);
-        currentIndex = prevIndex;
-    });
+    prevButton.addEventListener('click', () => moveToSlide('prev'));
     
     // Autoplay
-    let autoplayInterval = setInterval(() => {
-        nextButton.click();
-    }, 5000);
+    const startAutoplay = () => {
+        return setInterval(() => {
+            moveToSlide('next');
+        }, 4000); // Cambiar cada 4 segundos
+    };
+    
+    let autoplayInterval = startAutoplay();
     
     // Pausar autoplay al hover
     track.addEventListener('mouseenter', () => {
@@ -152,8 +186,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Reanudar autoplay al quitar el hover
     track.addEventListener('mouseleave', () => {
-        autoplayInterval = setInterval(() => {
-            nextButton.click();
-        }, 5000);
+        autoplayInterval = startAutoplay();
+    });
+    
+    // Manejar visibilidad de la página
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            clearInterval(autoplayInterval);
+        } else {
+            autoplayInterval = startAutoplay();
+        }
     });
 }); 
