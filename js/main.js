@@ -53,7 +53,7 @@ function openProject(projectId) {
 }
 
 // Cerrar modal
-document.querySelector('.close-modal').addEventListener('click', () => {
+document.querySelector('.close-modal')?.addEventListener('click', () => {
     document.getElementById('projectModal').style.display = 'none';
 });
 
@@ -100,108 +100,20 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Carrusel
-document.addEventListener('DOMContentLoaded', function() {
-    const track = document.querySelector('.carousel-track');
-    const slides = Array.from(track.children);
-    const nextButton = document.querySelector('.carousel-button.next');
-    const prevButton = document.querySelector('.carousel-button.prev');
-    
-    let currentIndex = 0;
-    let isTransitioning = false;
-    const slideCount = slides.length;
-    const transitionDuration = 800; // debe coincidir con la duración en CSS
-    
-    // Función para inicializar el carrusel
-    const initializeCarousel = () => {
-        slides[0].classList.add('active');
-        slides[1].classList.add('next');
-        slides[slideCount - 1].classList.add('prev');
-    };
-    
-    // Función para mover al siguiente slide
-    const moveToSlide = (direction) => {
-        if (isTransitioning) return;
-        isTransitioning = true;
-        
-        const currentSlide = slides[currentIndex];
-        let nextIndex = direction === 'next' 
-            ? (currentIndex + 1) % slideCount 
-            : (currentIndex - 1 + slideCount) % slideCount;
-        
-        // Remover clases anteriores
-        slides.forEach(slide => {
-            slide.classList.remove('prev', 'next');
-        });
-        
-        // Preparar siguiente slide
-        if (direction === 'next') {
-            slides[nextIndex].classList.add('next');
-        } else {
-            slides[nextIndex].classList.add('prev');
-        }
-        
-        // Forzar un reflow para asegurar que las transiciones funcionen
-        void currentSlide.offsetWidth;
-        
-        // Activar transición
-        currentSlide.classList.remove('active');
-        slides[nextIndex].classList.add('active');
-        slides[nextIndex].classList.remove(direction === 'next' ? 'next' : 'prev');
-        
-        // Actualizar índice actual
-        currentIndex = nextIndex;
-        
-        // Preparar siguiente slide para la próxima transición
-        setTimeout(() => {
-            const nextNextIndex = direction === 'next'
-                ? (currentIndex + 1) % slideCount
-                : (currentIndex - 1 + slideCount) % slideCount;
-            
-            slides.forEach((slide, index) => {
-                if (index === nextNextIndex) {
-                    slide.classList.add(direction === 'next' ? 'next' : 'prev');
-                }
-            });
-            
-            isTransitioning = false;
-        }, transitionDuration);
-    };
-    
-    // Inicializar carrusel
-    initializeCarousel();
-    
-    // Click en botón siguiente
-    nextButton.addEventListener('click', () => moveToSlide('next'));
-    
-    // Click en botón anterior
-    prevButton.addEventListener('click', () => moveToSlide('prev'));
-    
-    // Autoplay
-    const startAutoplay = () => {
-        return setInterval(() => {
-            moveToSlide('next');
-        }, 4000); // Cambiar cada 4 segundos
-    };
-    
-    let autoplayInterval = startAutoplay();
-    
-    // Pausar autoplay al hover
-    track.addEventListener('mouseenter', () => {
-        clearInterval(autoplayInterval);
-    });
-    
-    // Reanudar autoplay al quitar el hover
-    track.addEventListener('mouseleave', () => {
-        autoplayInterval = startAutoplay();
-    });
-    
-    // Manejar visibilidad de la página
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-            clearInterval(autoplayInterval);
-        } else {
-            autoplayInterval = startAutoplay();
-        }
-    });
-}); 
+// Manejo del fondo dinámico
+function initBackgroundSlideshow() {
+    const slides = document.querySelectorAll('.background-slideshow .slide');
+    let currentSlide = 0;
+
+    function nextSlide() {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }
+
+    // Cambiar slide cada 5 segundos
+    setInterval(nextSlide, 5000);
+}
+
+// Inicializar el slideshow cuando el DOM esté cargado
+document.addEventListener('DOMContentLoaded', initBackgroundSlideshow); 
