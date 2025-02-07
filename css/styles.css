@@ -22,10 +22,11 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--background-color);
-    overflow: hidden;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 /* Navegación */
@@ -326,19 +327,26 @@ footer {
 
 /* Página de contacto */
 .contact-page {
-    padding: 120px 5% 5%;
+    padding: 2rem 1rem;
+    margin-top: var(--navbar-height);
+    margin-bottom: var(--footer-height);
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 .contact-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 1rem;
 }
 
 .contact-info {
-    padding: 2rem;
+    flex: 1;
+    min-width: 300px;
 }
 
 .contact-details {
@@ -357,9 +365,8 @@ footer {
 }
 
 .contact-form {
-    background: #f8f8f8;
-    padding: 2rem;
-    border-radius: 4px;
+    flex: 1;
+    min-width: 300px;
 }
 
 .form-group {
@@ -374,10 +381,11 @@ footer {
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #ddd;
+    max-width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--secondary-color);
     border-radius: 4px;
-    font-size: 1rem;
 }
 
 .submit-btn {
@@ -429,6 +437,23 @@ footer {
     .footer-content p {
         font-size: 0.8rem;
     }
+
+    .contact-container {
+        padding: 0.5rem;
+        flex-direction: column;
+    }
+
+    .contact-info,
+    .contact-form {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        box-sizing: border-box;
+    }
 }
 
 @media (max-width: 480px) {
@@ -439,6 +464,14 @@ footer {
     .nav-links a {
         margin-left: 0.5rem;
         font-size: 0.8rem;
+    }
+
+    .contact-page {
+        padding: 1rem 0.5rem;
+    }
+
+    .contact-container {
+        padding: 0.25rem;
     }
 }
 
